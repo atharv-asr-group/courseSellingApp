@@ -53,10 +53,42 @@ app.put('/admin/courses/:courseId',authenticateAdmin,(req,res)=>{
     const course=COURSES.find(a=>a.id==id);
     if(course){
         res.send('course updated');
+        // code to update
     }else{
         res.status(404).send('course not found');
     }
 })
+
+// user routes
+
+app.post('/users/signup',(req,res)=>{
+    const userBody=req.body;
+    const user={username:userBody.username,password:userBody.password};
+    USERS.push(user);
+    res.send('user account created successfully');
+});
+
+app.post('/users/login',userAuthentication,(req,res)=>{
+    res.send('user logged in successfully');
+});
+
+app.get('/users/courses',userAuthentication,(req,res)=>{
+    const filteredCourses=COURSES.filter(a=>a.publicshed);
+    res.send(filteredCourses);
+});
+
+app.post('/user/courses/:courseId',userAuthentication,(req,res)=>{
+    const id=req.params.courseId;
+    const course=COURSES.find(a=>a.id==id&&a.publicshed);
+    if(course){
+        res.send('course purchased');
+        // code adding courses.
+    }else{
+        res.status(404).send('course not found');
+    }
+})
+
+
 
 
 app.listen(3002,()=>{
