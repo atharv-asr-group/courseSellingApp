@@ -1,20 +1,39 @@
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
+
 function Signup(){
     return (
         <div>
         <center>
-            <div>
-                Welcome to coursera. Sign up below.
+            <div style={{paddingTop:150}}>
+                <h4>Welcome to coursera. Sign up below.</h4>
             </div>
-        <div style={{
-            border:"2px solid black",
-            width:400
-        }}>
-            Username- <input type="text" />
+            <Card variant="outlined" style={{width:400, padding:20}}>
             <br />
-            Password- <input type="text" />
+      <TextField fullWidth={true} id="username" label="username" variant="outlined" />
             <br />
-            <button>Signup</button>
-        </div>
+            <TextField fullWidth={true} id="password" label="password" variant="outlined" />
+            <br /><br />
+            <Button variant="contained"
+             onClick={()=>{
+                let username=document.getElementById('username').value;
+                let password=document.getElementById('password').value;
+                console.log(username);
+                fetch('http://localhost:3002/admin/signup',{
+                    method:'POST',
+                    body:JSON.stringify({
+                        username,
+                        password
+                    }),
+                    headers:{
+                        'Content-type':'application/json'
+                    }
+                })
+            }}
+            >sign up</Button>
+            <br />
+        </Card>
         </center>
         </div>
     )
