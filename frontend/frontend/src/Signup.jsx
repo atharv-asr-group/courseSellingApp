@@ -37,6 +37,11 @@ function Signup(){
                     headers:{
                         'Content-type':'application/json'
                     }
+                }).then((res)=>{
+                    res.json().then((data)=>{
+                        localStorage.setItem('token',data.token);
+                        // console.log(data.token);
+                    })
                 })
             }}
             >sign up</Button>
