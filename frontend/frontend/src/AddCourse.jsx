@@ -39,16 +39,22 @@ function AddCourse(){
             <br /><br />
             <Button variant="contained" 
             onClick={()=>{
+                console.log(JSON.stringify({
+                    title:title,
+                    description:description,
+                    price:Number(price),
+                    link:link
+                }));
                 fetch('http://localhost:3002/admin/courses',{
                     method:'POST',
                     body:JSON.stringify({
-                        title,
-                        description,
+                        title:title,
+                        description:description,
                         price:Number(price),
-                        link
+                        link:link
                     }),
                     headers:{
-                        'Content-type':'application-json',
+                        'Content-type':'application/json',
                         'authorization':'Bearer '+localStorage.getItem('token')
                     }
                 })
